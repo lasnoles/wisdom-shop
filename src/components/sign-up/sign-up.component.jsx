@@ -4,6 +4,7 @@ import FormInput from '../form-input/form-input.component';
 import CustomButton  from "../custom-button/custom-button.component";
 
 import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
+import ErrorMessage from '../error-message/error-message.component';
 
 import './sign-up.styles.scss';
 
@@ -69,7 +70,7 @@ class SignUp extends React.Component {
                 <CustomButton type='submit'>Sign Up</CustomButton>
 
               </form>
-              <label className='error-msg'>{this.state.errorMsg}</label>
+              <ErrorMessage>{this.state.errorMsg}</ErrorMessage>
               
             </div>
         )
