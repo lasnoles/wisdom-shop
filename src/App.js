@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
@@ -45,11 +45,18 @@ class App extends React.Component {
         <Header />
         <Route exact path="/" component={HomePage}/>
         <Route exact path="/shop" component={ShopPage}/>
-        <Route exact path="/signIn" component={SignInAndSignUpPage}/>
+        <Route exact path="/signIn" render={
+          ()=>this.props.currentUser? (<Redirect to='/' />):(<SignInAndSignUpPage/>)
+        }
+        />
       </div>
     );
   }
 }
+
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+})
 
 //this is like injecting a hardcoded action type.
 const mapDispatchToProps = dispatch => ({
@@ -57,4 +64,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 //this is to put the setCurrentUser function into this object properties.
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
